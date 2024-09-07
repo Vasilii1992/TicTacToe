@@ -46,6 +46,9 @@ public final class TicTacToeViewController: UIViewController {
     }()
 
      lazy var buttons: [[UIButton]] = createButtonsGrid()
+    
+    public var customBackBarButtonItem: UIBarButtonItem?
+
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +56,14 @@ public final class TicTacToeViewController: UIViewController {
         setupGrid()
         initializeBoard()
         setupConstraints()
+        
+        if let backButton = customBackBarButtonItem {
+            navigationItem.leftBarButtonItem = backButton
+        }
+    }
+    
+    @objc private func backBarButtonItemTapped() {
+        navigationController?.popViewController(animated: true)
     }
 
      func setupViews() {
