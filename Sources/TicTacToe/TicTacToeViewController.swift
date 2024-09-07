@@ -62,7 +62,7 @@ public final class TicTacToeViewController: UIViewController {
         }
     }
     
-    @objc private func backBarButtonItemTapped() {
+    @objc public func backBarButtonItemTapped() {
         navigationController?.popViewController(animated: true)
     }
 
