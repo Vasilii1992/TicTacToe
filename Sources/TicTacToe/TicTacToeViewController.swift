@@ -47,6 +47,7 @@ public final class TicTacToeViewController: UIViewController {
 
      lazy var buttons: [[UIButton]] = createButtonsGrid()
     
+    
     public var backButtonImage: UIImage?
     public var backButtonTintColor: UIColor?
 
@@ -57,6 +58,7 @@ public final class TicTacToeViewController: UIViewController {
         initializeBoard()
         setupConstraints()
         
+
         let backButton = UIBarButtonItem(image: backButtonImage ?? UIImage(systemName: "chevron.left"),
                                          style: .plain,
                                          target: self,
@@ -71,7 +73,6 @@ public final class TicTacToeViewController: UIViewController {
            navigationController?.popViewController(animated: true)
        }
     
-
 
      func setupViews() {
         view.backgroundColor = .systemGray6
