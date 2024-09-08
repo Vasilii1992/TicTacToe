@@ -82,14 +82,14 @@ public final class TicTacToeViewController: UIViewController {
     }
 
      func setupConstraints() {
-        NSLayoutConstraint.activate([
-            vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            vStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            vStack.heightAnchor.constraint(equalTo: vStack.widthAnchor),
-
-            turnLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            turnLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+         NSLayoutConstraint.activate([
+             vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+             vStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
+             vStack.topAnchor.constraint(equalTo: turnLabel.bottomAnchor, constant: 10),
+             vStack.heightAnchor.constraint(equalTo: vStack.widthAnchor),
+             
+             turnLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+             turnLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 
@@ -122,28 +122,26 @@ public final class TicTacToeViewController: UIViewController {
         return buttonGrid
     }
 
-    @objc  func buttonTapped(_ sender: UIButton) {
-        if sender.title(for: .normal) == "" {
-            if currentTurn == Turn.Nought {
-                sender.setTitle(nought, for: .normal)
-                currentTurn = Turn.Cross
-                turnLabel.text = "Turn\n" + cross
-            } else if currentTurn == Turn.Cross {
-                sender.setTitle(cross, for: .normal)
-                currentTurn = Turn.Nought
-                turnLabel.text = "Turn\n" + nought
-            }
-            sender.isEnabled = false
-
-            if checkForVictory(nought) {
+    @objc func buttonTapped(_ sender: UIButton) {
+        guard sender.title(for: .normal) == "" else { return }
+        
+        let symbol = currentTurn == .Nought ? nought : cross
+        sender.setTitle(symbol, for: .normal)
+        sender.isEnabled = false
+        
+        currentTurn = currentTurn == .Nought ? .Cross : .Nought
+        turnLabel.text = "Turn\n" + (currentTurn == .Nought ? nought : cross)
+        
+        if checkForVictory(symbol) {
+            if symbol == nought {
                 noughtsScore += 1
                 resultAlert(title: "Noughts Win!")
-            } else if checkForVictory(cross) {
+            } else {
                 crossesScore += 1
                 resultAlert(title: "Crosses Win!")
-            } else if fullBoard() {
-                resultAlert(title: "Draw! The board is full.")
             }
+        } else if fullBoard() {
+            resultAlert(title: "Draw! The board is full.")
         }
     }
 }
