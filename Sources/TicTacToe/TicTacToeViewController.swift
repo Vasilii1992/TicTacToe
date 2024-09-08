@@ -29,7 +29,7 @@ public final class TicTacToeViewController: UIViewController {
         label.textColor = .black
         label.numberOfLines = 2
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 25, weight: .bold)
+        label.font = .systemFont(ofSize: 15, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
