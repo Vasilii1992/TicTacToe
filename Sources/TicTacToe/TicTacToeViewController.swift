@@ -81,16 +81,24 @@ public final class TicTacToeViewController: UIViewController {
         view.addSubview(turnLabel)
     }
 
-     func setupConstraints() {
-         NSLayoutConstraint.activate([
-             vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-             vStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
-             vStack.topAnchor.constraint(equalTo: turnLabel.bottomAnchor, constant: 10),
-             vStack.heightAnchor.constraint(equalTo: vStack.widthAnchor),
-             
-             turnLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-             turnLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            vStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
+            vStack.topAnchor.constraint(equalTo: turnLabel.bottomAnchor, constant: 10),
+            vStack.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+            vStack.heightAnchor.constraint(equalTo: vStack.widthAnchor),
+
+            turnLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            turnLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+    }
+    
+  public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
     }
 
      func setupGrid() {
